@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>API с JSON файла</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+  <div class="lol">
+    <a href="index.html" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">На главную</a>
+  </div>
+    <h1 class="text-center mt-5">API с JSON файла</h1>
+    <p class="text-center">По нажатию на кнопку можно получить данные с json файла</p>
+    <div class="d-flex justify-content-center">
+      <button id="getUsers" class="btn btn-primary">Получить данные с JSON файла</button>
+    </div>
+    <hr>
+    <div class="row">
+      
+    </div>
+    <div id="output">
+        <div class="text-center m-auto pt-3">
+          <img style="width: 300px; opacity: 0.1;" src="img/img-json.png" alt="">
+        </div>
+      </div>
+  </div>
+  <script>
+  document.getElementById('getUsers').addEventListener('click', getUsers)
+
+  function getUsers() {
+    fetch('users.json')
+    .then((res)=> res.json())
+    .then((data)=> {
+      let output = '<h2>Users</h2>';
+      data.forEach(user => {
+        output +=`
+          <ul>
+            <li>ID: ${user.id}</li>
+            <li>Name: ${user.name}</li>
+            <li>Email: ${user.email}</li>
+          </ul>
+        `
+      });
+      document.getElementById('output').innerHTML = output;
+    })
+    .catch((err) => console.log(err))
+  }
+
+  </script>
+</body>
+</html>

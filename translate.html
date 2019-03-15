@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>API Translate</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+      <div class="lol">
+          <a href="index.html" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">На главную</a>
+        </div>
+    <h1 class="text-center mt-5">API Translate</h1>
+    <p class="text-center">Введите слово или предложение,затем нажмите кнопку "Перевести".</p>
+      <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <button class="btn btn-primary" type="button" id="getTranslate">Перевести</button>
+          </div>
+          <input type="text" id="text" class="form-control" aria-label="Example text with button addon" aria-describedby="getTranslate" placeholder="Введите текст на анлийском">
+      </div>
+    <hr>
+    <div id="output">
+        <div class="text-center m-auto pt-3">
+          <img style="width: 300px; opacity: 0.1;" src="img/img-trans.png" alt="">
+        </div>
+      </div>
+  </div>
+  <script>
+  document.getElementById('getTranslate').addEventListener('click', getTranslate)
+
+  function getTranslate() {
+    let text = document.getElementById('text').value;
+    fetch('https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20190224T165000Z.276bda83888987c0.35d68089c9139fc10a2cc3376e148541ef28f309&lang=ru&text='+text)
+    .then((res)=> res.json())
+    .then((data)=>{
+      let output = '<h2>Перевод</h2>';
+        output +=`
+          <div>
+            <p>${data.text[0]}</p>
+          </div>
+        `;
+      document.getElementById('output').innerHTML = output;
+      })
+}
+  </script>
+</body>
+</html>

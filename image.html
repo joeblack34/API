@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>API Images</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+      <div class="lol">
+          <a href="index.html" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">На главную</a>
+        </div>
+    <h1 class="text-center mt-5">API Images</h1>
+    <p class="text-center">Введите слово или предложение,на основе этого будут искаться картинки.</p>
+    <div class="d-flex justify-content-center">
+      <input class="form-control col-md-6" type="text" id="query" placeholder="Введите текст запроса">
+    </div>
+    <hr>
+    <br>
+    <div id="output">
+      <div class="text-center m-auto pt-3">
+        <img style="width: 300px; opacity: 0.1;" src="img/img.png" alt="">
+      </div>
+    </div>
+  </div>
+  <script>
+  document.getElementById('query').addEventListener('input', getQuery)
+  
+  function getQuery() {
+    let query = document.getElementById('query').value;
+    if(query == ""){
+      document.getElementById('output').innerHTML = `
+        <div class="text-center m-auto pt-3">
+          <img style="width: 300px; opacity: 0.1;" src="img.png" alt="">
+        </div>
+      `;
+    }else{
+      fetch('https://pixabay.com/api/?key=11706982-0f048ff35ed59b6689edb45c4&q='+query+'&image_type=photo')
+      .then((res)=> res.json())
+      .then((data)=> {
+        
+          let output = '';
+          data.hits.forEach((image) => {
+            output +=`
+              <figure class="border border-light rounded col-md-6" style="background-image: url(${image.webformatURL});"></figure>
+            `
+            // <img class="border border-light rounded" src="${image.webformatURL}">
+          });
+          document.getElementById('output').innerHTML = output;
+      })
+      .catch((err) => {
+        document.getElementById('output').innerHTML = '<p>По данному запросу ничего не найдено</p>';
+        console.log(err)
+      })
+    }
+  }
+  </script>
+</body>
+</html>

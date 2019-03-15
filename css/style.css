@@ -1,0 +1,36 @@
+.row{
+  margin-left: 0px;
+  justify-content: space-between; 
+}
+
+figure {
+  float: left;
+  margin: 0;
+  background-position: center;
+  background-size: cover;
+  height: 450px; 
+}
+.wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.movie{
+  /* float: left; */
+  /* margin */
+  /* margin-right: 20px; */
+}
+
+.movie img{
+  height: 440px;
+}
+
+.card-movie{
+  height: 530px;
+}
+
+.lol
+{
+  position: absolute;
+  height: 50px;
+}

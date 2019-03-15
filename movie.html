@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>API Movie</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+      <div class="lol">
+          <a href="index.html" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">На главную</a>
+        </div>
+    <h1 class="text-center mt-5">API Movie</h1>
+    <p class="text-center">Введите слово (на английском языке),в результате получится список разных фильмов.</p>
+
+    <div class="d-flex justify-content-center">
+        <input class="form-control m-auto col-md-6" type="text" id="query" placeholder="Введите название фильма">
+      </div>
+    <hr>
+    <div class="wrapper" id="output">
+        <div class="text-center m-auto pt-3">
+          <img style="width: 600px; opacity: 0.1;" src="img/img-movie.jpg" alt="">
+        </div>
+      </div>
+    
+  </div>
+  <script>
+  // document.getElementById('getSearch').addEventListener('click', getSearch)
+  document.getElementById('query').addEventListener('input', getSearch)
+  
+  function getSearch() {
+    let query = document.getElementById('query').value;
+    fetch('http://www.omdbapi.com/?s='+query+'&apikey=379d061')
+    .then((res)=> res.json())
+    .then((data)=> {
+      let output = '';
+      data.Search.forEach((movie) => {
+        output +=`
+        <div class="card movie card-movie mb-5" style="width: 18rem;">
+          <img src="${movie.Poster}" class="card-img-top" alt="">
+          <div class="card-body">
+            <p class="card-text">${movie.Title}</p>
+          </div>
+        </div>
+        `
+      });
+      document.getElementById('output').innerHTML = output;
+    })
+  }
+  </script>
+</body>
+</html>
