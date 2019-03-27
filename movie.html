@@ -33,7 +33,7 @@
   
   function getSearch() {
     let query = document.getElementById('query').value;
-    fetch('http://www.omdbapi.com/?s='+query+'&apikey=379d061')
+    fetch('https://www.omdbapi.com/?s='+query+'&apikey=379d061')
     .then((res)=> res.json())
     .then((data)=> {
       let output = '';
